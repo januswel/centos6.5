@@ -3,6 +3,12 @@ server-base
 
 a server with basic features
 
+Architectures
+-------------
+
+- using CentOS dist
+- less hole
+
 Dependencies
 ------------
 
