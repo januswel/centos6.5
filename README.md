@@ -39,3 +39,13 @@ When you wanna run serverspec alone, a set of commands below are useful.
 > cd serverspec
 > bundle exec rake serverspec
 ```
+
+Questions and Answers
+---------------------
+
+### Why don't you specify the "playbook.yml" to Vagrant provisioner?
+
+To disable SELinux, I need to reboot the host.
+
+Rebooting vagrant hosts require the command `vagrant reload`, but it has a restrict that it is avaiable only when host has no vagrant process.
+Vagrant provisioners are run by Vagrant itself, so there is no chance to reboot hosts with provisioner.
