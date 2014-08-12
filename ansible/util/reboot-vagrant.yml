@@ -1,5 +1,5 @@
 ---
 - name: reboot vagrant host
-  command: '/usr/bin/vagrant reload'
+  command: 'vagrant reload'
   delegate_to: 127.0.0.1
   changed_when: false
