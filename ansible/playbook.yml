@@ -3,7 +3,6 @@
   vars:
     ip_address: 192.168.50.100
     host_name: 192.168.50.100
-    document_root: /vagrant
   roles:
     - common
   post_tasks:
