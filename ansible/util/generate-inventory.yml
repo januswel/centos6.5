@@ -1,0 +1,5 @@
+--- # generate ansible inventory file with Vagrant
+- hosts: default
+  tasks:
+    - name: ping
+      action: ping

@@ -1,0 +1,6 @@
+---
+- name: disable SELinux
+  sudo: yes
+  selinux: state=disabled
+
+- include: ../../../util/reboot.yml

@@ -1,0 +1,19 @@
+---
+- name: serverspec is installed?
+  shell: cd ../serverspec && bundle check
+  delegate_to: 127.0.0.1
+  register: exists_serverspec
+  changed_when: false
+  failed_when: false
+
+- name: install serverspec
+  shell: cd ../serverspec && bundle install --path gems
+  delegate_to: 127.0.0.1
+  register: bundle
+  changed_when: bundle.stdout in 'Installing'
+  when: exists_serverspec.rc
+
+- name: run serverspec
+  shell: cd ../serverspec && bundle exec rake serverspec
+  delegate_to: 127.0.0.1
+  changed_when: false

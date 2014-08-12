@@ -1,0 +1,4 @@
+---
+- name: install libselinux-python to handle files
+  sudo: yes
+  yum: pkg=libselinux-python

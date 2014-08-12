@@ -1,0 +1,16 @@
+---
+- name: install ntpd
+  sudo: yes
+  yum: pkg=ntp
+
+- name: deploy config file for ntpd
+  sudo: yes
+  template:
+    src=ntp.conf.j2
+    dest=/etc/ntp.conf
+  notify:
+    - restart ntpd
+
+- name: enable and start ntpd
+  sudo: yes
+  service: name=ntpd enabled=true state=started

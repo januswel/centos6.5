@@ -1,0 +1,4 @@
+---
+- name: install man
+  sudo: yes
+  yum: pkg=man

@@ -1,0 +1,31 @@
+require 'rake'
+require 'rspec/core/rake_task'
+require 'yaml'
+
+hosts = YAML.load_file('hosts.yml')
+
+desc "Run serverspec to all hosts"
+task :serverspec => 'serverspec:all'
+
+class ServerspecTask < RSpec::Core::RakeTask
+
+  attr_accessor :target
+
+  def spec_command
+    cmd = super
+    "env TARGET_HOST=#{target} #{cmd}"
+  end
+
+end
+
+namespace :serverspec do
+  task :all => hosts.keys.map {|host| 'serverspec:' + host }
+
+  hosts.keys.each do |host|
+    desc "Run serverspec to #{host}"
+    ServerspecTask.new(host.to_sym) do |task|
+      task.target = host
+      task.pattern = 'spec/{' + hosts[host][:roles].join(',') + '}/*_spec.rb'
+    end
+  end
+end
