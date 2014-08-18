@@ -1,13 +1,7 @@
 ---
 - include: required.yml
 
-- name: SELinux is enabled?
-  shell: /usr/sbin/getenforce
-  register: selinux_status
-  changed_when: false
-
 - include: disable-selinux.yml
-  when: selinux_status.stdout not in 'Disabled'
 
 - include: hosts.yml
 - include: network.yml

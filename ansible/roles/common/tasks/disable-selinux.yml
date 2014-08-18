@@ -1,6 +1,13 @@
 ---
+- name: SELinux is enabled?
+  shell: /usr/sbin/getenforce
+  register: selinux_status
+  changed_when: false
+
 - name: disable SELinux
   sudo: yes
   selinux: state=disabled
+  when: selinux_status.stdout not in 'Disabled'
 
 - include: ../../../util/reboot.yml
+  when: selinux_status.stdout not in 'Disabled'
