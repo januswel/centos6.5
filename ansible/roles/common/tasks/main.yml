@@ -6,6 +6,8 @@
 - include: hosts.yml
 - include: network.yml
 
+- include: epel.yml
+
 - include: ntpd.yml
 
 - include: man.yml
