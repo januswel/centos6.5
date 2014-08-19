@@ -1,6 +1,8 @@
 ---
 - name: change host name
   sudo: yes
-  template: src=network.j2 dest=/etc/sysconfig/network
+  template:
+    src: network.j2
+    dest: /etc/sysconfig/network
   notify:
     - restart network

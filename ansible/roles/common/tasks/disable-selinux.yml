@@ -6,7 +6,8 @@
 
 - name: disable SELinux
   sudo: yes
-  selinux: state=disabled
+  selinux:
+    state: disabled
   when: selinux_status.stdout not in 'Disabled'
 
 - include: ../../../util/reboot.yml

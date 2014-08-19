@@ -1,4 +1,6 @@
 ---
 - name: install man
   sudo: yes
-  yum: pkg=man
+  yum:
+    name: man
+    state: latest

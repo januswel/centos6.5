@@ -1,8 +1,12 @@
 ---
 - name: install libselinux-python to handle files
   sudo: yes
-  yum: pkg=libselinux-python
+  yum:
+    name: libselinux-python
+    state: latest
 
 - name: update OpenSSL to avoid Heartbleed
   sudo: yes
-  yum: pkg=openssl-1.0.1e-16.el6_5.14.x86_64
+  yum:
+    name: openssl-1.0.1e-16.el6_5.14.x86_64
+    state: present
