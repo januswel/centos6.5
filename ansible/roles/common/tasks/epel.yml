@@ -1,10 +1,9 @@
 ---
 - name: register epel repo
   sudo: yes
-  shell: rpm -U http://ftp.iij.ad.jp/pub/linux/fedora/epel/6/i386/epel-release-6-8.noarch.rpm
-  register: rpm_status
-  changed_when: "('installed' not in rpm_status.stderr) or rpm_status.rc == '0'"
-  failed_when: "('installed' not in rpm_status.stderr) and rpm_status.rc == '1'"
+  yum:
+    name: http://ftp.iij.ad.jp/pub/linux/fedora/epel/6/i386/epel-release-6-8.noarch.rpm
+    state: present
 
 - name: epel repo is enabled?
   shell: grep enabled /etc/yum.repos.d/epel.repo | grep 1 | wc -l
