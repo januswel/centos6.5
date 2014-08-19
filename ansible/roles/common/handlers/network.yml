@@ -1,0 +1,6 @@
+---
+- name: restart network
+  sudo: yes
+  service:
+    name: network
+    state: restarted

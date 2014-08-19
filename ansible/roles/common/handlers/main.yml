@@ -1,2 +1,3 @@
 ---
+- include: network.yml
 - include: ntpd.yml
