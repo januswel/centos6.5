@@ -7,10 +7,10 @@
 
 - name: epel repo is enabled?
   shell: grep enabled /etc/yum.repos.d/epel.repo | grep 1 | wc -l
-  register: enabled_status
+  register: epel_enabled
   changed_when: false
 
 - name: use enablerepo option to enable epel repo
   sudo: yes
   shell: sed -ie '/^enabled/s/1/0/' /etc/yum.repos.d/epel.repo
-  when: "'0' not in enabled_status.stdout"
+  when: epel_enabled.stdout == 0
