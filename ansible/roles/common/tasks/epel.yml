@@ -18,4 +18,4 @@
 - name: use enablerepo option to enable epel repo
   sudo: yes
   shell: sed -ie '/^enabled/s/1/0/' /etc/yum.repos.d/epel.repo
-  when: epel_settings.stat.exists == true and epel_enabled.stdout == 0
+  when: epel_settings.stat.exists == true and epel_enabled.stdout != 0
