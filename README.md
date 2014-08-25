@@ -24,8 +24,9 @@ Dependencies
 Usage
 -----
 
-First, create conf.yml file to specify IP address and host name.
-Copy conf.yml.example and modify it.
+First, create conf.yml file to specify IP address and host name for the Vagrant
+host.  This file is required.  I recommend you to copy conf.yml.example and
+modify it.
 
 ```sh
 > cp conf.yml.example conf.yml
