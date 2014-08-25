@@ -1,0 +1,7 @@
+---
+- name: install Node.js and npm
+  sudo: yes
+  yum:
+    name: nodejs,npm
+    state: latest
+    enablerepo: epel
