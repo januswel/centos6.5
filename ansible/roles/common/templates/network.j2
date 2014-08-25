@@ -1,3 +1,3 @@
 NETWORKING=yes
-HOSTNAME={{host_name}}
+HOSTNAME={{ host_name | default('192.168.50.100') }}
 RES_OPTIONS="single-request-reopen"

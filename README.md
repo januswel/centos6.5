@@ -24,12 +24,20 @@ Dependencies
 Usage
 -----
 
+First, create conf.yml file to specify IP address and host name.
+Copy conf.yml.example and modify it.
+
+```sh
+> cp conf.yml.example conf.yml
+> vi conf.yml
+```
+
 Hit the commands below to setup
 
 ```sh
 > vagrant up
 > cd ansible
-> ansible-playbook playbook.yml
+> ansible-playbook playbook.yml --extra-vars "@../conf.yml"
 ```
 
 At the end of setup, tests with serverspec run.
