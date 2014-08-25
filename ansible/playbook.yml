@@ -1,5 +1,7 @@
 ---
 - hosts: default
+  vars_files:
+    - ../conf.yml
   roles:
     - common
   post_tasks:

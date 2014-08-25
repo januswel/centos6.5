@@ -37,7 +37,7 @@ Hit the commands below to setup
 ```sh
 > vagrant up
 > cd ansible
-> ansible-playbook playbook.yml --extra-vars "@../conf.yml"
+> ansible-playbook playbook.yml
 ```
 
 At the end of setup, tests with serverspec run.
