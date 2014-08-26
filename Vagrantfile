@@ -5,10 +5,10 @@ require 'yaml'
 
 begin
   conf = YAML.load_file(File.join(File.dirname(__FILE__), 'conf.yml'))
-rescue
-  conf = {
-    'ip_address' => '192.168.50.100'
-  }
+rescue Errno::ENOENT => ex
+  STDERR.puts ex
+  STDERR.puts 'Create conf.yml at the same dir with Vagrantfile'
+  exit(false)
 end
 
 
