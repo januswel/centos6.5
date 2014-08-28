@@ -13,6 +13,19 @@
   notify:
     - restart ntpd
 
+- name: zone file for local time is changed?
+  shell: cmp /usr/share/zoneinfo/Japan /etc/localtime
+  register: zone_file_status
+  changed_when: false
+  failed_when: false
+
+- name: copy zone file for local time of Japan
+  sudo: yes
+  shell: cp -pf /usr/share/zoneinfo/Japan /etc/localtime
+  when: zone_file_status.rc == 1
+  notify:
+    - restart ntpd
+
 - name: enable and start ntpd
   sudo: yes
   service:
