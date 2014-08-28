@@ -26,6 +26,17 @@
   notify:
     - restart ntpd
 
+- name: ntpd is running?
+  command: /sbin/service ntpd status
+  register: ntpd_status
+  changed_when: false
+  failed_when: false
+
+- name: synchronize the time manually
+  sudo: yes
+  shell: ntpdate 0.jp.pool.ntp.org
+  when: "'running' not in ntpd_status.stdout"
+
 - name: enable and start ntpd
   sudo: yes
   service:
