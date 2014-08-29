@@ -1,0 +1,7 @@
+---
+- name: stop and disable ip6tables
+  sudo: yes
+  service:
+    name: ip6tables
+    enabled: false
+    state: stopped

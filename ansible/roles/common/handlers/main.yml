@@ -1,3 +1,4 @@
 ---
+- include: sysctl.yml
 - include: network.yml
 - include: ntpd.yml
