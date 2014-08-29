@@ -4,6 +4,7 @@
 - include: sysctl.yml
 
 - include: disable-ipv6.yml
+- include: disable-services.yml
 - include: disable-selinux.yml
 
 - include: hosts.yml

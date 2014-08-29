@@ -1,0 +1,49 @@
+---
+- name: stop and disable auditd
+  sudo: yes
+  service:
+    name: auditd
+    enabled: false
+    state: stopped
+
+- name: stop and disable blk-availability
+  sudo: yes
+  service:
+    name: blk-availability
+    enabled: false
+    state: stopped
+
+- name: stop and disable lvm2-monitor
+  sudo: yes
+  service:
+    name: lvm2-monitor
+    enabled: false
+    state: stopped
+
+- name: stop and disable postfix
+  sudo: yes
+  service:
+    name: postfix
+    enabled: false
+    state: stopped
+
+- name: stop and disable rpcbind
+  sudo: yes
+  service:
+    name: rpcbind
+    enabled: false
+    state: stopped
+
+- name: stop and disable rpcgssd
+  sudo: yes
+  service:
+    name: rpcgssd
+    enabled: false
+    state: stopped
+
+- name: stop and disable udev-post
+  sudo: yes
+  service:
+    name: udev-post
+    enabled: false
+    state: stopped
