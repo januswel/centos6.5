@@ -1,6 +1,0 @@
----
-- include: reboot-remote.yml
-  when: ansible_user_id != 'vagrant'
-
-- include: reboot-vagrant.yml
-  when: ansible_user_id == 'vagrant'

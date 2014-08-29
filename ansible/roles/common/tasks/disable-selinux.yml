@@ -9,6 +9,5 @@
   selinux:
     state: disabled
   when: selinux_status.stdout not in 'Disabled'
-
-- include: ../../../util/reboot.yml
-  when: selinux_status.stdout not in 'Disabled'
+  notify:
+    - reboot host
