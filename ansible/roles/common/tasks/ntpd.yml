@@ -27,7 +27,7 @@
     - restart ntpd
 
 - name: ntpd is running?
-  command: /sbin/service ntpd status
+  shell: /sbin/service ntpd status
   register: ntpd_status
   changed_when: false
   failed_when: false
