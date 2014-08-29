@@ -1,0 +1,4 @@
+---
+- name: source sysctl
+  sudo: yes
+  shell: /sbin/sysctl -p

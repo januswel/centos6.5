@@ -1,0 +1,8 @@
+---
+- name: deploy sysctl.conf
+  sudo: yes
+  template:
+    src: sysctl.conf.j2
+    dest: /etc/sysctl.conf
+  notify:
+    - source sysctl
