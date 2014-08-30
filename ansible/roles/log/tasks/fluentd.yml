@@ -1,0 +1,41 @@
+---
+- include: file-descriptors.yml
+- include: mongodb-users-for-fluentd.yml
+
+- name: yum has gpg key for Treasure Data?
+  shell: rpm -qi `rpm -qa gpg-pubkey*` | grep 'Treasure Data' | wc -l
+  register: gpg_key_status
+  changed_when: false
+
+- name: import gpg key for Treasure Data
+  sudo: yes
+  shell: rpm --import http://packages.treasuredata.com/GPG-KEY-td-agent
+  when: "'1' not in gpg_key_status.stdout"
+
+- name: deploy yum repo settings for fluentd
+  sudo: yes
+  template:
+    src: td.repo.j2
+    dest: /etc/yum.repos.d/td.repo
+
+- name: install fluentd
+  sudo: yes
+  yum:
+    name: td-agent
+    state: latest
+    enablerepo: treasuredata
+
+- name: deploy td-agent.conf
+  sudo: yes
+  template:
+    src: td-agent.conf.j2
+    dest: /etc/td-agent/td-agent.conf
+  notify:
+    - restart fluentd
+
+- name: start and enable fluentd
+  sudo: yes
+  service:
+    name: td-agent
+    enabled: true
+    state: started

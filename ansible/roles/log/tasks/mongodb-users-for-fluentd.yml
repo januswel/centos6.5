@@ -1,0 +1,10 @@
+---
+- name: MongoDB has user fluentd@fluentd?
+  shell: mongo fluentd -u fluentd -p fluentd --eval 'quit();'
+  register: mongodb_fluentd
+  changed_when: false
+  failed_when: false
+
+- name: add users for fluentd
+  shell: mongo fluentd /vagrant/ansible/roles/log/files/mongodb-users-for-fluentd.js -u root -p root --authenticationDatabase admin
+  when: "(mongodb_fluentd.rc == 1) and ('code: 18' in mongodb_fluentd.stdout)"

@@ -1,0 +1,19 @@
+# Listen at the port 24224
+<source>
+  type forward
+  port 24224
+</source>
+
+# from Node.js
+<match node.**>
+  type mongo
+  host localhost
+  port 27017
+  database fluentd
+  user logger
+  password logger
+
+  collection app
+
+  flush_interval 1s
+</match>

@@ -1,0 +1,13 @@
+---
+- name: how many file descriptors are there?
+  shell: ulimit -n
+  register: file_descriptors
+  changed_when: false
+
+- name: deploy limits.conf
+  sudo: yes
+  template:
+    src: limits.conf.j2
+    dest: /etc/security/limits.conf
+  notify:
+    - reboot host

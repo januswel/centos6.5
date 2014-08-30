@@ -1,2 +1,3 @@
 ---
 - include: mongod.yml
+- include: fluentd.yml

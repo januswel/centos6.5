@@ -1,0 +1,6 @@
+---
+- name: restart fluentd
+  sudo: yes
+  service:
+    name: td-agent
+    state: restarted
