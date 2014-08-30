@@ -1,0 +1,38 @@
+---
+- name: deploy yum repo settings for MongoDB
+  sudo: yes
+  template:
+    src: mongodb.repo.j2
+    dest: /etc/yum.repos.d/mongodb.repo
+
+- name: install MongoDB
+  sudo: yes
+  yum:
+    name: mongodb-org
+    state: latest
+    enablerepo: mongodb
+
+- name: deploy mongodb.conf
+  sudo: yes
+  template:
+    src: mongod.conf.j2
+    dest: /etc/mongod.conf
+  notify:
+    - restart mongod
+
+- name: enable and start MongoDB
+  sudo: yes
+  service:
+    name: mongod
+    enabled: true
+    state: started
+
+- name: MongoDB has user root@admin?
+  shell: mongo admin -u root -p root --eval 'quit();'
+  register: mongodb_root
+  changed_when: false
+  failed_when: false
+
+- name: initialize MongoDB settings
+  shell: mongo admin /vagrant/ansible/roles/log/files/init-mongodb.js
+  when: "(mongodb_root.rc == 1) and ('code: 18' in mongodb_root.stdout)"

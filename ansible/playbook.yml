@@ -4,5 +4,6 @@
     - ../conf.yml
   roles:
     - common
+    - log
   post_tasks:
     - include: util/serverspec.yml
