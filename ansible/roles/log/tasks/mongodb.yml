@@ -34,5 +34,5 @@
   failed_when: false
 
 - name: initialize MongoDB settings
-  shell: mongo admin /vagrant/ansible/roles/log/files/init-mongodb.js
+  shell: mongo admin /vagrant/ansible/roles/log/files/mongodb-admin.js
   when: "(mongodb_root.rc == 1) and ('code: 18' in mongodb_root.stdout)"
