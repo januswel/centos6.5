@@ -10,3 +10,9 @@
   yum:
     name: openssl-1.0.1e-30.el6_6.2.x86_64
     state: present
+
+- name: update bash to avoid Shellshock
+  sudo: yes
+  yum:
+    name: bash-4.1.2-29.el6.x86_64
+    state: present
