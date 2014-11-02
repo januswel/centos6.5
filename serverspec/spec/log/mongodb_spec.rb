@@ -19,5 +19,5 @@ end
 
 # MongoDB should have a user "root"
 describe command("mongo admin -u root -p root --eval 'quit();'") do
-  it { should return_exit_status 0 }
+  its(:exit_status) { should eq 0 }
 end
