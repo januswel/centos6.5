@@ -1,38 +1,46 @@
 require 'serverspec'
 require 'net/ssh'
+require 'tempfile'
 require 'pathname'
 require 'yaml'
 
-include Serverspec::Helper::Ssh
-include Serverspec::Helper::DetectOS
-include Serverspec::Helper::Properties
+set :backend, :ssh
 
 hosts = YAML.load_file('hosts.yml')
 
-RSpec.configure do |c|
-  c.host  = ENV['TARGET_HOST']
-  set_property hosts[c.host]
-  options = Net::SSH::Config.for(c.host)
-  user    = options[:user] || Etc.getlogin
-
-  if hosts[c.host][:vagrant?]
-    vagrant_up = `vagrant up default`
-    config = `vagrant ssh-config default`
-    if config != ''
-      config.each_line do |line|
-        if match = /HostName (.*)/.match(line)
-          c.host = match[1]
-        elsif  match = /User (.*)/.match(line)
-          user = match[1]
-        elsif match = /IdentityFile (.*)/.match(line)
-          options[:keys] =  [match[1].gsub(/"/,'')]
-        elsif match = /Port (.*)/.match(line)
-          options[:port] = match[1]
-        end
-      end
-    end
+if ENV['ASK_SUDO_PASSWORD']
+  begin
+    require 'highline/import'
+  rescue LoadError
+    fail "highline is not available. Try installing it."
   end
-
-  c.ssh   = Net::SSH.start(c.host, user, options)
-  c.os    = backend.check_os
+  set :sudo_password, ask("Enter sudo password: ") { |q| q.echo = false }
+else
+  set :sudo_password, ENV['SUDO_PASSWORD']
 end
+
+host = ENV['TARGET_HOST']
+
+if hosts[host][:vagrant?]
+    `vagrant up #{host}`
+    config = Tempfile.new('', Dir.tmpdir)
+    `vagrant ssh-config #{host} > #{config.path}`
+    options = Net::SSH::Config.for(host, [config.path])
+else
+    options = Net::SSH::Config.for(host)
+end
+
+options[:user] ||= Etc.getlogin
+
+set :host,        options[:host_name] || host
+set :ssh_options, options
+
+# Disable sudo
+# set :disable_sudo, true
+
+
+# Set environment variables
+# set :env, :LANG => 'C', :LC_MESSAGES => 'C' 
+
+# Set PATH
+# set :path, '/sbin:/usr/local/sbin:$PATH'
