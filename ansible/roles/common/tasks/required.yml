@@ -8,5 +8,5 @@
 - name: update OpenSSL to avoid Heartbleed
   sudo: yes
   yum:
-    name: openssl-1.0.1e-16.el6_5.14.x86_64
+    name: openssl-1.0.1e-30.el6_6.2.x86_64
     state: present
