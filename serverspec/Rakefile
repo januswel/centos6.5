@@ -4,8 +4,8 @@ require 'yaml'
 
 hosts = YAML.load_file('hosts.yml')
 
-desc "Run serverspec to all hosts"
 task :serverspec => 'serverspec:all'
+task :default => :serverspec
 
 class ServerspecTask < RSpec::Core::RakeTask
 
